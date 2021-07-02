@@ -2,6 +2,7 @@
 toc: true
 layout: post
 description: One of my favourite Poems.
+image: images/bukowski.jpg
 categories: [motivation]
 title: No Leaders Please by Charles Bukowski
 ---
