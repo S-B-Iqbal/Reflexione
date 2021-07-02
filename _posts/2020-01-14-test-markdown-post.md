@@ -10,6 +10,7 @@ title: No Leaders Please by Charles Bukowski
 # No Leaders Please
 
 ```python
+
 Invent yourself and then reinvent yourself,
 don't swim in the same slough.
 invent yourself and then reinvent yourself,
