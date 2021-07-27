@@ -4,7 +4,7 @@ title: About Me
 permalink: /about/
 ---
 
-Hey, Iqbal from India. I as currently doing Master's in 'Statistics and Machine Learning' at Linkoping University.
+Hey!, Iqbal from India. I as currently doing Master's in 'Statistics and Machine Learning' at Linkoping University.
 Always trying to update my weights and biases.
 If you wanna collaborate on some cool projects or just say hi, we can get in touch on [Twitter](https://twitter.com/MusingIqbal).
 
