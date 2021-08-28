@@ -1567,7 +1567,7 @@ likelihood function is bounded because $\text{0 }\le p(\mathbf{x_n|\mu_k}) \le \
 
 <ul>
   <li>Need to scale the <code class="language-plaintext highlighter-rouge">x</code> data</li>
-  <li>Class Probability Estimate $\hat{p}<em>{k} \left(x^{*} \right) =$ $\frac{\mathrm{e}^{\delta_k (x^*)}}{\sum</em>{l=1}^{K} \mathrm{e}^{\delta_l (x^*)}}$
+  <li>Class Probability Estimate $\hat{p_k} \left(x^{<em>} \right) =$ $\frac{\mathrm{e}^{\delta_k (x^</em>)}}{\sum_{l=1}^{K} \mathrm{e}^{\delta_l (x^*)}}$
     <div class="language-r highlighter-rouge">
 <div class="highlight"><pre class="highlight"><code><span class="w">  </span><span class="c1"># To Obtain Class Probability estimate</span><span class="w">
   </span><span class="n">pamr.predict</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="w"> </span><span class="n">newx</span><span class="p">,</span><span class="w"> </span><span class="n">threshold</span><span class="p">,</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="s2">"posterior"</span><span class="p">,</span><span class="n">prior</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">model</span><span class="o">$</span><span class="n">prior</span><span class="p">,</span><span class="w"> </span><span class="n">threshold.scale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">model</span><span class="o">$</span><span class="n">threshold.scale</span><span class="p">)</span><span class="w">
