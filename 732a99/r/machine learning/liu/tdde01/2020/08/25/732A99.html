@@ -383,7 +383,7 @@ window.onload = wrap_img;
   <li>In case of Multiclass data, use ‘dirichlet’ priors!</li>
   <li>In contrast to the mixture of Gaussians, there are no singularities in which the likelihood function goes to infinity.This can be seen by noting that the
 likelihood function is bounded because $\text{0 }\le p(\mathbf{x_n|\mu_k}) \le \text{ 1}$</li>
-  <li>We have $\text{Log-Likelihood :} \ln p(\textbf{X}|\mu, \pi)  = \displaystyle \sum_{n=1}^{N} ln {\sum_{k=1}^{K} \pi_{k} p(\mathbf{x}<em>n | \mathbf{\mu}_k)  }$ where $p(\mathbf{x}_n | \mathbf{\mu}_k) = \displaystyle \prod</em>{i=1}^{D} \mu_i^{x_i} \left(1 - \mu_i \right)^{1 - x_i}$ i.e., $x_n$ datapoint with $D$ “binary” variables.</li>
+  <li>$\text{Log-Likelihood :} \ln p(\textbf{X} | \mu, \pi)  = \displaystyle \sum_{n=1}^{N} \ln {\sum_{k=1}^{K} \pi_{k} p(\mathbf{x_n} | \mathbf{\mu_k})  }$ where $p(\mathbf{x_n} | \mathbf{\mu_k}) = \displaystyle \prod_{i=1}^{D} \mu_i^{x_i} \left(1 - \mu_i \right)^{1 - x_i}$ i.e., $x_n$ datapoint with $D$ “binary” variables.</li>
   <li>Algo Steps:
     <ol>
       <li>Use $\text{Eq. 9.54}$ to get the $\textbf{Complete Data Log Likelihood}$</li>
