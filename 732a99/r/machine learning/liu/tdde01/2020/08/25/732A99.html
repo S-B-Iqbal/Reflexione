@@ -141,11 +141,6 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h3"><a href="#2-nn-r">Neural-Net Regression</a></li>
 <li class="toc-entry toc-h3"><a href="#2-em-b">EM : Multivariate Bernoulli</a></li>
 <li class="toc-entry toc-h3"><a href="#2-em-g">EM: Mixture of Gaussians</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h1"><a href="#x_density-and-cdll-need-to-be-outside-em-function-as-they-are-helper">‘x_density’ and ‘CDLL’ need to be outside EM function as they are helper</a></li>
-<li class="toc-entry toc-h1"><a href="#observe-complete-data-log-likelihood">Observe Complete Data Log Likelihood</a>
-<ul>
 <li class="toc-entry toc-h3"><a href="#2-gam">GAM(Generalized Additive Models)</a></li>
 <li class="toc-entry toc-h3"><a href="#2-kde">Kernel Classification(using Kernel Density Estimation)</a></li>
 <li class="toc-entry toc-h3"><a href="#2-lda">LDA(Manual implementation can be extended to QDA and Naive Bayes)</a></li>
@@ -163,9 +158,9 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h3"><a href="#2-svm">SVM</a></li>
 <li class="toc-entry toc-h3"><a href="#2-bag">Experimental Estimation of Bagging Error</a></li>
 <li class="toc-entry toc-h3"><a href="#2-nn-scratch">NN from Scratch</a></li>
-<li class="toc-entry toc-h2"><a href="#now-transpose-x-and-y-important-step-before-implementation">Now transpose X and Y: Important Step before Implementation</a></li>
 </ul>
 </li>
+<li class="toc-entry toc-h2"><a href="#now-transpose-x-and-y-important-step-before-implementation">Now transpose X and Y: Important Step before Implementation</a></li>
 <li class="toc-entry toc-h1"><a href="#1-define-architecture">1. Define Architecture</a></li>
 <li class="toc-entry toc-h1"><a href="#2-initialize-model-params">2. Initialize Model Params</a>
 <ul>
@@ -312,16 +307,7 @@ window.onload = wrap_img;
 
 <ul>
   <li>Look at data imbalance when quoting misclassification.</li>
-  <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>Misclassification rate : $\textbf{1 - Accuracy    OR  }\frac{\text{FP+FN}}{total}$</td>
-          <td>Accuracy : $\frac{TP+TN}{total}$</td>
-        </tr>
-      </tbody>
-    </table>
-  </li>
+  <li>Misclassification rate : $\textbf{1 - Accuracy    OR  }\frac{\text{FP+FN}}{total}$ |  Accuracy : $\frac{TP+TN}{total}$</li>
 </ul>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="o">$</span><span class="n">train</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">data</span><span class="o">$</span><span class="n">prediction</span><span class="p">)</span><span class="w">
@@ -428,7 +414,7 @@ likelihood function is bounded because $\text{0 }\le p(\mathbf{x_n|\mu_k}) \le \
     <table>
       <tbody>
         <tr>
-          <td>$\text{Log-Likelihood :} \ln p(\textbf{X}</td>
+          <td>We have $\text{Log-Likelihood :} \ln p(\textbf{X}</td>
           <td>\mu, \pi)  = \displaystyle \sum_{n=1}^{N} ln {\sum_{k=1}^{K} \pi_{k} p(\mathbf{x}_n</td>
           <td>\mathbf{\mu}_k)  }$ where $p(\mathbf{x}_n</td>
           <td>\mathbf{\mu}<em>k) = \displaystyle \prod</em>{i=1}^{D} \mu_i^{x_i} \left(1 - \mu_i \right)^{1 - x_i}$ i.e., $x_n$ datapoint with $D$ “binary” variables.</td>
@@ -450,7 +436,7 @@ likelihood function is bounded because $\text{0 }\le p(\mathbf{x_n|\mu_k}) \le \
   </li>
 </ul>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w"> </span><span class="c1">## For Piping</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w"> </span><span class="c1">## For Piping  </span><span class="w">
 </span><span class="n">set.seed</span><span class="p">(</span><span class="m">1234567890</span><span class="p">)</span><span class="w">
 </span><span class="n">max_it</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="w">
 </span><span class="n">min_change</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.1</span><span class="w">
@@ -544,7 +530,7 @@ likelihood function is bounded because $\text{0 }\le p(\mathbf{x_n|\mu_k}) \le \
     <table>
       <tbody>
         <tr>
-          <td>$\text{Log-Likelihood :} \ln p(\textbf{X}</td>
+          <td>We have $\text{Log-Likelihood :} \ln p(\textbf{X}</td>
           <td>\mu, \pi,\Sigma)  = \displaystyle \sum_{n=1}^{N}  \sum_{k=1}^{K} { \ln \pi_{k} +\ln \mathcal{N}(\mathbf{x}_n</td>
           <td>\mathbf{\mu}_k, \Sigma_k)  }$</td>
         </tr>
@@ -576,65 +562,127 @@ likelihood function is bounded because $\text{0 }\le p(\mathbf{x_n|\mu_k}) \le \
           <li>In case We need it to be only-diagonal matrix: <code class="language-plaintext highlighter-rouge">sigmA[k,,] = diag(diag(sigmaK)/N_k[k]) ## Only Diagonals</code>
 </li>
           <li>If we dont want it to be non-diagonal: <code class="language-plaintext highlighter-rouge">sigmA[k,,] = sigmaK/N_k[k]) ## We need to divide by N_k[k]</code>
-```r
-library(dplyr) ## For Piping
-library(mvtnorm)
-dataEM = read.table(paste0(file_path, “dataEM.txt”))
-N = dim(dataEM)[1]
-D = dim(dataEM)[2] # Can be columns
-df  = as.data.frame(dataEM)</li>
+</li>
         </ul>
       </li>
     </ul>
   </li>
 </ul>
 
-<h1 id="x_density-and-cdll-need-to-be-outside-em-function-as-they-are-helper">
-<a class="anchor" href="#x_density-and-cdll-need-to-be-outside-em-function-as-they-are-helper" aria-hidden="true"><span class="octicon octicon-link"></span></a>‘x_density’ and ‘CDLL’ need to be outside EM function as they are helper</h1>
-<h1 id="observe-complete-data-log-likelihood">
-<a class="anchor" href="#observe-complete-data-log-likelihood" aria-hidden="true"><span class="octicon octicon-link"></span></a>Observe Complete Data Log Likelihood</h1>
-<p>x_density = function(n,df,K,pi,mu,sigmA){
-  vK = NA
-  for(k in 1:K){</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w"> </span><span class="c1">## For Piping</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">mvtnorm</span><span class="p">)</span><span class="w">
+</span><span class="n">dataEM</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read.table</span><span class="p">(</span><span class="n">paste0</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span><span class="w"> </span><span class="s2">"dataEM.txt"</span><span class="p">))</span><span class="w">
+</span><span class="n">N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">dim</span><span class="p">(</span><span class="n">dataEM</span><span class="p">)[</span><span class="m">1</span><span class="p">]</span><span class="w">
+</span><span class="n">D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">dim</span><span class="p">(</span><span class="n">dataEM</span><span class="p">)[</span><span class="m">2</span><span class="p">]</span><span class="w"> </span><span class="c1"># Can be columns</span><span class="w">
+</span><span class="n">df</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">as.data.frame</span><span class="p">(</span><span class="n">dataEM</span><span class="p">)</span><span class="w">
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vK[k]= log(pi[k]) + dmvnorm(df[n,], mean = mu[k,], sigma = sigmA[k,,], log = TRUE)   }   return(sum(vK)) } CDLL = function(df, K,pi,mu,sigmA){   loglik = sapply(1:N, FUN = x_density, df,K,pi,mu,sigmA) %&gt;% sum   return(loglik) } # EM-Function EM = function(df,N,D,K,pi,mu,sigmA){   # E-Step   e_step = function(df,N,K, pi, mu, sigmA){
-z = matrix(NA, nrow = N, ncol = K)
-for(n in 1:N){
-  for(k in 1:K){
-    # z[n,k] is the numerator in eq. 9.23
-    z[n,k] =  pi[k]*dmvnorm(df[n,], mean = mu[k,],sigma = sigmA[k,,]) 
-  }
+
+
+</span><span class="n">x_density</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">df</span><span class="p">,</span><span class="n">K</span><span class="p">,</span><span class="nb">pi</span><span class="p">,</span><span class="n">mu</span><span class="p">,</span><span class="n">sigmA</span><span class="p">){</span><span class="w">
+ 
+  </span><span class="n">vK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">NA</span><span class="w">
+  </span><span class="k">for</span><span class="p">(</span><span class="n">k</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="n">K</span><span class="p">){</span><span class="w">
+    
+    </span><span class="n">vK</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">=</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="nb">pi</span><span class="p">[</span><span class="n">k</span><span class="p">])</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">dmvnorm</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">n</span><span class="p">,],</span><span class="w"> </span><span class="n">mean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mu</span><span class="p">[</span><span class="n">k</span><span class="p">,],</span><span class="w"> </span><span class="n">sigma</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sigmA</span><span class="p">[</span><span class="n">k</span><span class="p">,,],</span><span class="w"> </span><span class="n">log</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+  </span><span class="nf">return</span><span class="p">(</span><span class="nf">sum</span><span class="p">(</span><span class="n">vK</span><span class="p">))</span><span class="w">  </span><span class="c1"># x_density and CDLL need to be outside EM function as they are helper</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="n">CDLL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">K</span><span class="p">,</span><span class="nb">pi</span><span class="p">,</span><span class="n">mu</span><span class="p">,</span><span class="n">sigmA</span><span class="p">){</span><span class="w">
   
-  z[n,] = z[n,]/sum(z[n,]) # Eq 9.23
-}
-return(z)   }   z = e_step(df=df,N, K=K, pi=pi,mu = mu, sigmA = sigmA)   N_k = colSums(z,na.rm = TRUE)   ##M - step   # pi   update_pi = function(z, N){
-pi_m = colSums(z)/N
-pi_m = pi_m/sum(pi_m)
-return(pi_m)   }   pi = update_pi(z,N)   # mu   update_mu = function(df, z, Nk){
-mu_m = (t(df)%*%z)/Nk
-return(as.matrix(t(mu_m)))   }   mu = update_mu(df, z, Nk = N_k)   # Update Sigma   cov_k = function(n,df, K, z){
-df = as.matrix(df)
-val = (df[n,]%*%t(df[n,]))*z[n,k]
-return(as.matrix(val))   }   for(k in 1:K){
-sigmaK = sapply(1:N, FUN = cov_k, df = df, K=k,z = z) %&gt;% rowSums
-sigmaK = matrix(sigmaK, ncol=D, byrow = T)
-sigmA[k,,] = diag(diag(sigmaK)/N_k[k]) ## Only Diagonals   }   llik = CDLL(df,K,pi,mu,sigmA) ## CDLL is designed as a global function   return(list(pi = pi,mu = mu, sigma = sigmA, LLik = llik)) } ## Function to run EM Algorithm RUN_EM = function(df,N,D,K,pi,mu,sigmA,max_it,delta){   llik = vector(length = max_it)   for(it in 1:max_it){
-if(it==1){
-  llik[it] = CDLL(df,K,pi,mu,sigmA)
-  result = EM(df,N,D,K,pi,mu,sigmA)
-  pi = result$pi
-  mu = result$mu
-  sigmA = result$sigma
-}
-else{
-  result = EM(df,N,D,K,pi,mu,sigmA)
-  pi = result$pi
-  mu = result$mu
-  sigmA = result$sigma 
-  llik[it] = result$LLik
-  if( (abs(llik[it] - llik[it-1])&lt;delta) )break
-}   }   return(list(pi = pi,mu = mu, sigma = sigmA, LLik = llik, iterations = it)) } ## RUN EXPERIMENT K = 2 D = 2 # Columns  mu = matrix(nrow = K, ncol = D) sigmA = array(NA,dim=c(K,2,2)) # K X [D X D] for(k in 1:K){   mu[k,] = runif(D, 0,5)   sigmA[k,,] = diag(rep(1,D)) } pi = runif(K,0.4,0.6) pi = pi/sum(pi) max_it = 100 delta = 0.1 result_2 = RUN_EM(df,N,D,K,pi,mu,sigmA,max_it,delta) # Plot par(mfrow=c(1,3)) plot(result_2$LLik[2:result_2$iterations], col=2, type='l') # Plot only Non-Zero Log-Likelihoods plot(result_3$LLik[1:result_3$iterations], col=3, type='l') plot(result_4$LLik[2:result_4$iterations], col=4, type='l') # Calculate Bayesian Info Criteria BIC = function(LL,M,N){return(LL - (0.5*M/log(N)))} BIC2 = BIC(LL = result_2$LLik[result_2$iterations], M=2, N=600) ```
-</code></pre></div></div>
+  </span><span class="n">loglik</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sapply</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">FUN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x_density</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="p">,</span><span class="n">K</span><span class="p">,</span><span class="nb">pi</span><span class="p">,</span><span class="n">mu</span><span class="p">,</span><span class="n">sigmA</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">sum</span><span class="w">
+  </span><span class="nf">return</span><span class="p">(</span><span class="n">loglik</span><span class="p">)</span><span class="w"> </span><span class="c1"># Observe Complete Data Log Likelihood</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="c1"># EM-Function</span><span class="w">
+</span><span class="n">EM</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">D</span><span class="p">,</span><span class="n">K</span><span class="p">,</span><span class="nb">pi</span><span class="p">,</span><span class="n">mu</span><span class="p">,</span><span class="n">sigmA</span><span class="p">){</span><span class="w">
+  </span><span class="c1"># E-Step</span><span class="w">
+  </span><span class="n">e_step</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="nb">pi</span><span class="p">,</span><span class="w"> </span><span class="n">mu</span><span class="p">,</span><span class="w"> </span><span class="n">sigmA</span><span class="p">){</span><span class="w">
+    </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">K</span><span class="p">)</span><span class="w">
+    </span><span class="k">for</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="n">N</span><span class="p">){</span><span class="w">
+      </span><span class="k">for</span><span class="p">(</span><span class="n">k</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="n">K</span><span class="p">){</span><span class="w">
+        </span><span class="c1"># z[n,k] is the numerator in eq. 9.23</span><span class="w">
+        </span><span class="n">z</span><span class="p">[</span><span class="n">n</span><span class="p">,</span><span class="n">k</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="nb">pi</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">*</span><span class="n">dmvnorm</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">n</span><span class="p">,],</span><span class="w"> </span><span class="n">mean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mu</span><span class="p">[</span><span class="n">k</span><span class="p">,],</span><span class="n">sigma</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sigmA</span><span class="p">[</span><span class="n">k</span><span class="p">,,])</span><span class="w"> 
+      </span><span class="p">}</span><span class="w">
+      
+      </span><span class="n">z</span><span class="p">[</span><span class="n">n</span><span class="p">,]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">z</span><span class="p">[</span><span class="n">n</span><span class="p">,]</span><span class="o">/</span><span class="nf">sum</span><span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="n">n</span><span class="p">,])</span><span class="w"> </span><span class="c1"># Eq 9.23</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="nf">return</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+  </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e_step</span><span class="p">(</span><span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">K</span><span class="o">=</span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="nb">pi</span><span class="o">=</span><span class="nb">pi</span><span class="p">,</span><span class="n">mu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mu</span><span class="p">,</span><span class="w"> </span><span class="n">sigmA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sigmA</span><span class="p">)</span><span class="w">
+  </span><span class="n">N_k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">colSums</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">na.rm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+  </span><span class="c1">##M - step</span><span class="w">
+  </span><span class="c1"># pi</span><span class="w">
+  </span><span class="n">update_pi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">){</span><span class="w">
+    </span><span class="n">pi_m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">colSums</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="o">/</span><span class="n">N</span><span class="w">
+    </span><span class="n">pi_m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pi_m</span><span class="o">/</span><span class="nf">sum</span><span class="p">(</span><span class="n">pi_m</span><span class="p">)</span><span class="w">
+    </span><span class="nf">return</span><span class="p">(</span><span class="n">pi_m</span><span class="p">)</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+  </span><span class="nb">pi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">update_pi</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">N</span><span class="p">)</span><span class="w">
+  </span><span class="c1"># mu</span><span class="w">
+  </span><span class="n">update_mu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">,</span><span class="w"> </span><span class="n">Nk</span><span class="p">){</span><span class="w">
+    </span><span class="n">mu_m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">%*%</span><span class="n">z</span><span class="p">)</span><span class="o">/</span><span class="n">Nk</span><span class="w">
+    </span><span class="nf">return</span><span class="p">(</span><span class="n">as.matrix</span><span class="p">(</span><span class="n">t</span><span class="p">(</span><span class="n">mu_m</span><span class="p">)))</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+  </span><span class="n">mu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">update_mu</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">,</span><span class="w"> </span><span class="n">Nk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N_k</span><span class="p">)</span><span class="w">
+  </span><span class="c1"># Update Sigma</span><span class="w">
+  </span><span class="n">cov_k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">){</span><span class="w">
+    </span><span class="n">df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">as.matrix</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="w">
+    </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">n</span><span class="p">,]</span><span class="o">%*%</span><span class="n">t</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">n</span><span class="p">,]))</span><span class="o">*</span><span class="n">z</span><span class="p">[</span><span class="n">n</span><span class="p">,</span><span class="n">k</span><span class="p">]</span><span class="w">
+    </span><span class="nf">return</span><span class="p">(</span><span class="n">as.matrix</span><span class="p">(</span><span class="n">val</span><span class="p">))</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+  </span><span class="k">for</span><span class="p">(</span><span class="n">k</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="n">K</span><span class="p">){</span><span class="w">
+    </span><span class="n">sigmaK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sapply</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">FUN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cov_k</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">K</span><span class="o">=</span><span class="n">k</span><span class="p">,</span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">z</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">rowSums</span><span class="w">
+    </span><span class="n">sigmaK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="n">sigmaK</span><span class="p">,</span><span class="w"> </span><span class="n">ncol</span><span class="o">=</span><span class="n">D</span><span class="p">,</span><span class="w"> </span><span class="n">byrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">)</span><span class="w">
+    </span><span class="n">sigmA</span><span class="p">[</span><span class="n">k</span><span class="p">,,]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">diag</span><span class="p">(</span><span class="n">diag</span><span class="p">(</span><span class="n">sigmaK</span><span class="p">)</span><span class="o">/</span><span class="n">N_k</span><span class="p">[</span><span class="n">k</span><span class="p">])</span><span class="w"> </span><span class="c1">## Only Diagonals</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+  </span><span class="n">llik</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CDLL</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">K</span><span class="p">,</span><span class="nb">pi</span><span class="p">,</span><span class="n">mu</span><span class="p">,</span><span class="n">sigmA</span><span class="p">)</span><span class="w"> </span><span class="c1">## CDLL is designed as a global function</span><span class="w">
+  </span><span class="nf">return</span><span class="p">(</span><span class="nf">list</span><span class="p">(</span><span class="nb">pi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">pi</span><span class="p">,</span><span class="n">mu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mu</span><span class="p">,</span><span class="w"> </span><span class="n">sigma</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sigmA</span><span class="p">,</span><span class="w"> </span><span class="n">LLik</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">llik</span><span class="p">))</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="c1">## Function to run EM Algorithm</span><span class="w">
+</span><span class="n">RUN_EM</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">D</span><span class="p">,</span><span class="n">K</span><span class="p">,</span><span class="nb">pi</span><span class="p">,</span><span class="n">mu</span><span class="p">,</span><span class="n">sigmA</span><span class="p">,</span><span class="n">max_it</span><span class="p">,</span><span class="n">delta</span><span class="p">){</span><span class="w">
+  </span><span class="n">llik</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vector</span><span class="p">(</span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max_it</span><span class="p">)</span><span class="w">
+  </span><span class="k">for</span><span class="p">(</span><span class="n">it</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="n">max_it</span><span class="p">){</span><span class="w">
+    </span><span class="k">if</span><span class="p">(</span><span class="n">it</span><span class="o">==</span><span class="m">1</span><span class="p">){</span><span class="w">
+      </span><span class="n">llik</span><span class="p">[</span><span class="n">it</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CDLL</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">K</span><span class="p">,</span><span class="nb">pi</span><span class="p">,</span><span class="n">mu</span><span class="p">,</span><span class="n">sigmA</span><span class="p">)</span><span class="w">
+      </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EM</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">D</span><span class="p">,</span><span class="n">K</span><span class="p">,</span><span class="nb">pi</span><span class="p">,</span><span class="n">mu</span><span class="p">,</span><span class="n">sigmA</span><span class="p">)</span><span class="w">
+      </span><span class="nb">pi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="o">$</span><span class="nb">pi</span><span class="w">
+      </span><span class="n">mu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="o">$</span><span class="n">mu</span><span class="w">
+      </span><span class="n">sigmA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="o">$</span><span class="n">sigma</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="k">else</span><span class="p">{</span><span class="w">
+      </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EM</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">D</span><span class="p">,</span><span class="n">K</span><span class="p">,</span><span class="nb">pi</span><span class="p">,</span><span class="n">mu</span><span class="p">,</span><span class="n">sigmA</span><span class="p">)</span><span class="w">
+      </span><span class="nb">pi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="o">$</span><span class="nb">pi</span><span class="w">
+      </span><span class="n">mu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="o">$</span><span class="n">mu</span><span class="w">
+      </span><span class="n">sigmA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="o">$</span><span class="n">sigma</span><span class="w"> 
+      </span><span class="n">llik</span><span class="p">[</span><span class="n">it</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="o">$</span><span class="n">LLik</span><span class="w">
+      </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="p">(</span><span class="nf">abs</span><span class="p">(</span><span class="n">llik</span><span class="p">[</span><span class="n">it</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">llik</span><span class="p">[</span><span class="n">it</span><span class="m">-1</span><span class="p">])</span><span class="o">&lt;</span><span class="n">delta</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="k">break</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+  </span><span class="nf">return</span><span class="p">(</span><span class="nf">list</span><span class="p">(</span><span class="nb">pi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">pi</span><span class="p">,</span><span class="n">mu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mu</span><span class="p">,</span><span class="w"> </span><span class="n">sigma</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sigmA</span><span class="p">,</span><span class="w"> </span><span class="n">LLik</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">llik</span><span class="p">,</span><span class="w"> </span><span class="n">iterations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">it</span><span class="p">))</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="c1">## RUN EXPERIMENT</span><span class="w">
+</span><span class="n">K</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="n">D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="c1"># Columns </span><span class="w">
+</span><span class="n">mu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">D</span><span class="p">)</span><span class="w">
+</span><span class="n">sigmA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">array</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="n">dim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">2</span><span class="p">))</span><span class="w"> </span><span class="c1"># K X [D X D]</span><span class="w">
+</span><span class="k">for</span><span class="p">(</span><span class="n">k</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="n">K</span><span class="p">){</span><span class="w">
+  </span><span class="n">mu</span><span class="p">[</span><span class="n">k</span><span class="p">,]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runif</span><span class="p">(</span><span class="n">D</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="m">5</span><span class="p">)</span><span class="w">
+  </span><span class="n">sigmA</span><span class="p">[</span><span class="n">k</span><span class="p">,,]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">diag</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="n">D</span><span class="p">))</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="nb">pi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runif</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="m">0.4</span><span class="p">,</span><span class="m">0.6</span><span class="p">)</span><span class="w">
+</span><span class="nb">pi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">pi</span><span class="o">/</span><span class="nf">sum</span><span class="p">(</span><span class="nb">pi</span><span class="p">)</span><span class="w">
+</span><span class="n">max_it</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="w">
+</span><span class="n">delta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.1</span><span class="w">
+</span><span class="n">result_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RUN_EM</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">D</span><span class="p">,</span><span class="n">K</span><span class="p">,</span><span class="nb">pi</span><span class="p">,</span><span class="n">mu</span><span class="p">,</span><span class="n">sigmA</span><span class="p">,</span><span class="n">max_it</span><span class="p">,</span><span class="n">delta</span><span class="p">)</span><span class="w">
+</span><span class="c1"># Plot</span><span class="w">
+</span><span class="n">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">3</span><span class="p">))</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">result_2</span><span class="o">$</span><span class="n">LLik</span><span class="p">[</span><span class="m">2</span><span class="o">:</span><span class="n">result_2</span><span class="o">$</span><span class="n">iterations</span><span class="p">],</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s1">'l'</span><span class="p">)</span><span class="w"> </span><span class="c1"># Plot only Non-Zero Log-Likelihoods</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">result_3</span><span class="o">$</span><span class="n">LLik</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="n">result_3</span><span class="o">$</span><span class="n">iterations</span><span class="p">],</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s1">'l'</span><span class="p">)</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">result_4</span><span class="o">$</span><span class="n">LLik</span><span class="p">[</span><span class="m">2</span><span class="o">:</span><span class="n">result_4</span><span class="o">$</span><span class="n">iterations</span><span class="p">],</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s1">'l'</span><span class="p">)</span><span class="w">
+</span><span class="c1"># Calculate Bayesian Info Criteria</span><span class="w">
+</span><span class="n">BIC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">LL</span><span class="p">,</span><span class="n">M</span><span class="p">,</span><span class="n">N</span><span class="p">){</span><span class="nf">return</span><span class="p">(</span><span class="n">LL</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="m">0.5</span><span class="o">*</span><span class="n">M</span><span class="o">/</span><span class="nf">log</span><span class="p">(</span><span class="n">N</span><span class="p">)))}</span><span class="w">
+</span><span class="n">BIC2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BIC</span><span class="p">(</span><span class="n">LL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result_2</span><span class="o">$</span><span class="n">LLik</span><span class="p">[</span><span class="n">result_2</span><span class="o">$</span><span class="n">iterations</span><span class="p">],</span><span class="w"> </span><span class="n">M</span><span class="o">=</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="o">=</span><span class="m">600</span><span class="p">)</span><span class="w">   
+   
+</span></code></pre></div></div>
 
 <h3 id="2-gam">
 <a class="anchor" href="#2-gam" aria-hidden="true"><span class="octicon octicon-link"></span></a>GAM(Generalized Additive Models)</h3>
@@ -1017,26 +1065,8 @@ else{
 <a class="anchor" href="#2-logistic" aria-hidden="true"><span class="octicon octicon-link"></span></a>Logistic Regression</h3>
 
 <ul>
-  <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>for prediction use <code class="language-plaintext highlighter-rouge">predict(glm.fits, type = 'response')</code> script. This generates probability for $\textbf{p(Y=1</td>
-          <td>X)}$</td>
-        </tr>
-      </tbody>
-    </table>
-  </li>
-  <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>$p(Y=1</td>
-          <td>\mathbf{w,X}) = \sigma{\left(\mathbf{w^T \cdot X} \right)}$ where $\sigma(a) = \frac{1}{1 + e^{-a}}$ with a linear decision boundary  at $\mathbf{w^T\cdot X}= 0$</td>
-        </tr>
-      </tbody>
-    </table>
-  </li>
+  <li>for prediction use <code class="language-plaintext highlighter-rouge">predict(glm.fits, type = 'response')</code> script. This generates probability for $\textbf{p(Y=1|X)}$</li>
+  <li>$p(Y=1|\mathbf{w,X}) = \sigma{\left(\mathbf{w^T \cdot X} \right)}$ where $\sigma(a) = \frac{1}{1 + e^{-a}}$ with a linear decision boundary  at $\mathbf{w^T\cdot X}= 0$</li>
   <li>Also $Y \sim Bern(\sigma(\mathbf{w^T \cdot X}))$</li>
 </ul>
 
