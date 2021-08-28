@@ -160,29 +160,12 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h3"><a href="#2-nn-scratch">NN from Scratch</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h2"><a href="#now-transpose-x-and-y-important-step-before-implementation">Now transpose X and Y: Important Step before Implementation</a></li>
-<li class="toc-entry toc-h1"><a href="#1-define-architecture">1. Define Architecture</a></li>
-<li class="toc-entry toc-h1"><a href="#2-initialize-model-params">2. Initialize Model Params</a>
+<li class="toc-entry toc-h2"><a href="#2-head">Unsupervised Learning</a>
 <ul>
-<li class="toc-entry toc-h2"><a href="#activations">Activations</a></li>
-<li class="toc-entry toc-h2"><a href="#using-tanh-in-the-hidden-layer">Using Tanh in the hidden layer</a></li>
-<li class="toc-entry toc-h2"><a href="#sigmoid-in-the-output-layer">Sigmoid in the Output Layer</a></li>
-<li class="toc-entry toc-h2"><a href="#classification">Classification</a></li>
-<li class="toc-entry toc-h2"><a href="#if-regression">If Regression</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h1"><a href="#m--dimx2--noof-datapoints">m = dim(X)[2] # No.of Datapoints</a></li>
-<li class="toc-entry toc-h1"><a href="#a2--cachea2--output">A2 = cache$A2 # Output</a></li>
-<li class="toc-entry toc-h1"><a href="#cost---meana2-y2">cost &lt;- mean((A2-Y)^2)</a></li>
-<li class="toc-entry toc-h1"><a href="#return-cost">return (cost)</a>
-<ul>
-<li class="toc-entry toc-h2"><a href="#training">Training</a></li>
-<li class="toc-entry toc-h2"><a href="#learning">Learning</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h1"><a href="#making-prediction">Making Prediction</a>
-<ul>
+<li class="toc-entry toc-h3"><a href="#nsc">Nearest Shrunken Centroid</a></li>
 <li class="toc-entry toc-h3"><a href="#pca">PCA</a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h2"><a href="#2-head">Other Topics</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#npb">Non-Parametric Bootstrap</a></li>
@@ -195,8 +178,6 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h3"><a href="#nested-cv">Nested Cross-Validation</a></li>
 <li class="toc-entry toc-h3"><a href="#laplace">Laplace Prior</a></li>
 <li class="toc-entry toc-h3"><a href="#entropy">Entropy</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul><h2 id="1-Preprocessing">
@@ -410,18 +391,7 @@ window.onload = wrap_img;
   <li>In case of Multiclass data, use ‘dirichlet’ priors!</li>
   <li>In contrast to the mixture of Gaussians, there are no singularities in which the likelihood function goes to infinity.This can be seen by noting that the
 likelihood function is bounded because $\text{0 }\le p(\mathbf{x_n|\mu_k}) \le \text{ 1}$</li>
-  <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>We have $\text{Log-Likelihood :} \ln p(\textbf{X}</td>
-          <td>\mu, \pi)  = \displaystyle \sum_{n=1}^{N} ln {\sum_{k=1}^{K} \pi_{k} p(\mathbf{x}_n</td>
-          <td>\mathbf{\mu}_k)  }$ where $p(\mathbf{x}_n</td>
-          <td>\mathbf{\mu}<em>k) = \displaystyle \prod</em>{i=1}^{D} \mu_i^{x_i} \left(1 - \mu_i \right)^{1 - x_i}$ i.e., $x_n$ datapoint with $D$ “binary” variables.</td>
-        </tr>
-      </tbody>
-    </table>
-  </li>
+  <li>We have $\text{Log-Likelihood :} \ln p(\textbf{X}|\mu, \pi)  = \displaystyle \sum_{n=1}^{N} ln {\sum_{k=1}^{K} \pi_{k} p(\mathbf{x}<em>n | \mathbf{\mu}_k)  }$ where $p(\mathbf{x}_n | \mathbf{\mu}_k) = \displaystyle \prod</em>{i=1}^{D} \mu_i^{x_i} \left(1 - \mu_i \right)^{1 - x_i}$ i.e., $x_n$ datapoint with $D$ “binary” variables.</li>
   <li>Algo Steps:
     <ol>
       <li>Use $\text{Eq. 9.54}$ to get the $\textbf{Complete Data Log Likelihood}$</li>
@@ -526,17 +496,7 @@ likelihood function is bounded because $\text{0 }\le p(\mathbf{x_n|\mu_k}) \le \
 <ul>
   <li>Initial $\mu$ and $\Sigma$ can be obtained using <code class="language-plaintext highlighter-rouge">kmeans</code>
 </li>
-  <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>We have $\text{Log-Likelihood :} \ln p(\textbf{X}</td>
-          <td>\mu, \pi,\Sigma)  = \displaystyle \sum_{n=1}^{N}  \sum_{k=1}^{K} { \ln \pi_{k} +\ln \mathcal{N}(\mathbf{x}_n</td>
-          <td>\mathbf{\mu}_k, \Sigma_k)  }$</td>
-        </tr>
-      </tbody>
-    </table>
-  </li>
+  <li>We have $\text{Log-Likelihood :} \ln p(\textbf{X}|\mu, \pi,\Sigma)  = \displaystyle \sum_{n=1}^{N}  \sum_{k=1}^{K} { \ln \pi_{k} +\ln \mathcal{N}(\mathbf{x}_n | \mathbf{\mu}_k, \Sigma_k)  }$</li>
   <li>
 <strong>E-Step</strong>:
     <ul>
@@ -795,16 +755,7 @@ likelihood function is bounded because $\text{0 }\le p(\mathbf{x_n|\mu_k}) \le \
   <li>Inputs are assumed to be <strong>CONTINUOUS</strong>
 </li>
   <li>All Classes share the same covariance matrix(In QDA, they don’t)</li>
-  <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>Because of ‘common covariance matrix’ assumption, the decision boundary corresponding to Posterior Probability $p(C_k</td>
-          <td>\textbf{x})$ are constant and can be respresented by  a linear function of $\textbf{x}$ i.e., “decision boundaries are linear in input space”.</td>
-        </tr>
-      </tbody>
-    </table>
-  </li>
+  <li>Because of ‘common covariance matrix’ assumption, the decision boundary corresponding to Posterior Probability $p(C_k|\textbf{x})$ are constant and can be respresented by  a linear function of $\textbf{x}$ i.e., “decision boundaries are linear in input space”.</li>
   <li>Since, we estimate the parameters using MLE, the approach is susceptible to ‘outliers’.</li>
   <li>While plotting, make the <code class="language-plaintext highlighter-rouge">xlim</code> and <code class="language-plaintext highlighter-rouge">ylim</code> of <code class="language-plaintext highlighter-rouge">generated data</code> same as Old Data.</li>
   <li>Use only diagonal elements of pooled-covariance matrix to perform Naive Bayes.</li>
@@ -932,17 +883,7 @@ likelihood function is bounded because $\text{0 }\le p(\mathbf{x_n|\mu_k}) \le \
 <a class="anchor" href="#2-dt" aria-hidden="true"><span class="octicon octicon-link"></span></a>Decision Trees: Classification/Regression</h3>
 
 <ul>
-  <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>Lesser the <em>residual Mean deviance</em>.better the model. <em>Residual Mean Deviance</em> = $\frac{\text{deviance}}{n-</td>
-          <td>T_o</td>
-          <td>}$ where $n= \text{no. of data points}$ and $T_o=\text{No. of Terminal Nodes}$</td>
-        </tr>
-      </tbody>
-    </table>
-  </li>
+  <li>Lesser the <em>residual Mean deviance</em>.better the model. <em>Residual Mean Deviance</em> = $\frac{\text{deviance}}{n- |T_o|}$ where $n= \text{no. of data points}$ and $T_o=\text{No. of Terminal Nodes}$</li>
   <li>
 <em>Deviance</em> = $-2 \sum_m \sum_k n_{mk} \cdot log \hat{p}<em>{mk}$ where $n</em>{mk}$ is the no. of obs in the <em>m</em>th terminal node belonging to the <em>k</em>th class</li>
   <li>Optimal Tree can be selected using:
@@ -1158,16 +1099,7 @@ likelihood function is bounded because $\text{0 }\le p(\mathbf{x_n|\mu_k}) \le \
 <a class="anchor" href="#2-poisson" aria-hidden="true"><span class="octicon octicon-link"></span></a>Poisson Regression</h3>
 
 <ul>
-  <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>$p(y=Y</td>
-          <td>\lambda) = \frac{e^{-\lambda} \lambda^{Y}}{Y!}$</td>
-        </tr>
-      </tbody>
-    </table>
-  </li>
+  <li>$p(y=Y|\lambda) = \frac{e^{-\lambda} \lambda^{Y}}{Y!}$</li>
   <li>For Prediction of $\hat{Y}$, we use $\hat{Y} =  e^{\mathbf{W^TX}}$ whete $\lambda = \mathbf{W^TX}$
     <div class="language-r highlighter-rouge">
 <div class="highlight"><pre class="highlight"><code><span class="n">yTestPred</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">predict</span><span class="p">(</span><span class="n">lasso.fit</span><span class="p">,</span><span class="w"> </span><span class="n">newx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">as.matrix</span><span class="p">(</span><span class="n">test</span><span class="p">[,</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">8</span><span class="p">)]),</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"response"</span><span class="p">)</span><span class="w">
@@ -1438,23 +1370,6 @@ likelihood function is bounded because $\text{0 }\le p(\mathbf{x_n|\mu_k}) \le \
 </span><span class="n">cost</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">mean</span><span class="p">((</span><span class="n">A2</span><span class="o">-</span><span class="n">Y</span><span class="p">)</span><span class="o">^</span><span class="m">2</span><span class="p">)</span><span class="w">
 </span><span class="n">return</span><span class="w"> </span><span class="p">(</span><span class="n">cost</span><span class="p">)}</span><span class="w">
 </span></code></pre></div>            </div>
-            <p>```r
-data = read.csv2(paste0(file_path,”spambase_exam.csv”))
-X = as.matrix(data[,c(1:57)], ncol = 57)
-X = scale(X)
-Y = as.matrix(data$Spam)</p>
-            <h2 id="now-transpose-x-and-y-important-step-before-implementation">
-<a class="anchor" href="#now-transpose-x-and-y-important-step-before-implementation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Now transpose X and Y: Important Step before Implementation</h2>
-            <p>X = t(X) 
-Y = t(Y)</p>
-            <h1 id="1-define-architecture">
-<a class="anchor" href="#1-define-architecture" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Define Architecture</h1>
-            <h1 id="2-initialize-model-params">
-<a class="anchor" href="#2-initialize-model-params" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. Initialize Model Params</h1>
-            <p>getLayerSize = function(X,Y,hidden_neurons, train=TRUE){
-n_x = dim(X)[1]
-n_h = hidden_neurons
-n_y = dim(Y)[1]</p>
           </li>
         </ol>
       </li>
@@ -1462,203 +1377,212 @@ n_y = dim(Y)[1]</p>
   </li>
 </ul>
 
-<p>size = list(
-    “n_x” = n_x,
-    “n_h” = n_h,
-    “n_y” = n_y
-  )
-  return(size)
-}
-layers_size = getLayerSize(X,Y,10)
-initializeParameters = function(X, list_layer_size){
-  m = dim(data.matrix(X))[2] ## No of Training Points
-  n_x &lt;- list_layer_size$n_x
-  n_h &lt;- list_layer_size$n_h
-  n_y &lt;- list_layer_size$n_y</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w">   </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read.csv2</span><span class="p">(</span><span class="n">paste0</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span><span class="s2">"spambase_exam.csv"</span><span class="p">))</span><span class="w">  
+   </span><span class="n">X</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">as.matrix</span><span class="p">(</span><span class="n">data</span><span class="p">[,</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">57</span><span class="p">)],</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">57</span><span class="p">)</span><span class="w">
+   </span><span class="n">X</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scale</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="w">
+   </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">as.matrix</span><span class="p">(</span><span class="n">data</span><span class="o">$</span><span class="n">Spam</span><span class="p">)</span><span class="w">
+   </span><span class="c1">## Now transpose X and Y: Important Step before Implementation</span><span class="w">
+   </span><span class="n">X</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="w"> 
+   </span><span class="n">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span><span class="w">
+   </span><span class="c1"># 1. Define Architecture</span><span class="w">
+   </span><span class="c1"># 2. Initialize Model Params</span><span class="w">
+   </span><span class="n">getLayerSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">hidden_neurons</span><span class="p">,</span><span class="w"> </span><span class="n">train</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">){</span><span class="w">
+     </span><span class="n">n_x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">dim</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="m">1</span><span class="p">]</span><span class="w">
+     </span><span class="n">n_h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hidden_neurons</span><span class="w">
+     </span><span class="n">n_y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">dim</span><span class="p">(</span><span class="n">Y</span><span class="p">)[</span><span class="m">1</span><span class="p">]</span><span class="w">
 
-<p>W1 = matrix(runif(n_h<em>n_x), nrow = n_h, ncol=n_x, byrow = TRUE)</em>0.01
-  b1 = matrix(rep(0,n_h), nrow = n_h)</p>
+     </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="w">
+       </span><span class="s2">"n_x"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n_x</span><span class="p">,</span><span class="w">
+       </span><span class="s2">"n_h"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n_h</span><span class="p">,</span><span class="w">
+       </span><span class="s2">"n_y"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n_y</span><span class="w">
+     </span><span class="p">)</span><span class="w">
+     </span><span class="nf">return</span><span class="p">(</span><span class="n">size</span><span class="p">)</span><span class="w">
+   </span><span class="p">}</span><span class="w">
+   </span><span class="n">layers_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getLayerSize</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="m">10</span><span class="p">)</span><span class="w">
+   </span><span class="n">initializeParameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">list_layer_size</span><span class="p">){</span><span class="w">
+     </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">dim</span><span class="p">(</span><span class="n">data.matrix</span><span class="p">(</span><span class="n">X</span><span class="p">))[</span><span class="m">2</span><span class="p">]</span><span class="w"> </span><span class="c1">## No of Training Points</span><span class="w">
+     </span><span class="n">n_x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">list_layer_size</span><span class="o">$</span><span class="n">n_x</span><span class="w">
+     </span><span class="n">n_h</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">list_layer_size</span><span class="o">$</span><span class="n">n_h</span><span class="w">
+     </span><span class="n">n_y</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">list_layer_size</span><span class="o">$</span><span class="n">n_y</span><span class="w">
 
-<p>W2 = matrix(runif(n_y<em>n_h), nrow = n_y, ncol = n_h, byrow = TRUE)</em>0.01
-  b2 &lt;- matrix(rep(0, n_y), nrow = n_y)</p>
+     </span><span class="n">W1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="n">runif</span><span class="p">(</span><span class="n">n_h</span><span class="o">*</span><span class="n">n_x</span><span class="p">),</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n_h</span><span class="p">,</span><span class="w"> </span><span class="n">ncol</span><span class="o">=</span><span class="n">n_x</span><span class="p">,</span><span class="w"> </span><span class="n">byrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="o">*</span><span class="m">0.01</span><span class="w">
+     </span><span class="n">b1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="n">n_h</span><span class="p">),</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n_h</span><span class="p">)</span><span class="w">
 
-<p>params &lt;- list(“W1” = W1,
-                 “b1” = b1, 
-                 “W2” = W2,
-                 “b2” = b2)</p>
+     </span><span class="n">W2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="n">runif</span><span class="p">(</span><span class="n">n_y</span><span class="o">*</span><span class="n">n_h</span><span class="p">),</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n_y</span><span class="p">,</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n_h</span><span class="p">,</span><span class="w"> </span><span class="n">byrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="o">*</span><span class="m">0.01</span><span class="w">
+     </span><span class="n">b2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">n_y</span><span class="p">),</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n_y</span><span class="p">)</span><span class="w">
 
-<p>return (params)
-}
-pars = initializeParameters(X, layers_size)</p>
-<h2 id="activations">
-<a class="anchor" href="#activations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Activations</h2>
-<p>sigmoid &lt;- function(x){
-  return(1 / (1 + exp(-x)))
-}</p>
-<h2 id="using-tanh-in-the-hidden-layer">
-<a class="anchor" href="#using-tanh-in-the-hidden-layer" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using Tanh in the hidden layer</h2>
-<h2 id="sigmoid-in-the-output-layer">
-<a class="anchor" href="#sigmoid-in-the-output-layer" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sigmoid in the Output Layer</h2>
-<p>forwardPropagation = function(X, params, list_layer_size){
-  m &lt;- dim(X)[2]
-  n_h &lt;- list_layer_size$n_h
-  n_y &lt;- list_layer_size$n_y
-  W1 &lt;- params$W1
-  b1 &lt;- params$b1
-  W2 &lt;- params$W2
-  b2 &lt;- params$b2
-  b1_new &lt;- matrix(rep(b1, m), nrow = n_h)
-  b2_new &lt;- matrix(rep(b2, m), nrow = n_y)
-  # Input to Hiddem
-  Z1 &lt;- W1 %<em>% X + b1_new
-  A1 &lt;- tanh(Z1)
-  # A1 &lt;- sigmoid(Z1) # For Sigmoid in input layer
-  # Hidden to Output
-  Z2 &lt;- W2 %</em>% A1 + b2_new
-  # A2 = Z2 # Linear Output
-  A2 &lt;- sigmoid(Z2) # For Sigmoid
-  cache &lt;- list(“Z1” = Z1,
-                “A1” = A1, 
-                “Z2” = Z2,
-                “A2” = A2)
-  return (cache)
-}
-fwd_prop &lt;- forwardPropagation(X, pars, layers_size)
-lapply(fwd_prop, function(x) dim(x))</p>
-<h2 id="classification">
-<a class="anchor" href="#classification" aria-hidden="true"><span class="octicon octicon-link"></span></a>Classification</h2>
-<p>computeCost = function(X,Y,cache){
-  m = dim(X)[2] # No.of Datapoints
-  A2 = cache$A2 # Output
-  # Binary Loss
-  logprobs = (log(A2) * Y) + (log(1-A2) * (1-Y))
-  cost &lt;- -sum(logprobs/m)
-  return (cost)
-}</p>
-<h2 id="if-regression">
-<a class="anchor" href="#if-regression" aria-hidden="true"><span class="octicon octicon-link"></span></a>If Regression</h2>
-<p>#computeCost = function(X,Y,cache){</p>
-<h1 id="m--dimx2--noof-datapoints">
-<a class="anchor" href="#m--dimx2--noof-datapoints" aria-hidden="true"><span class="octicon octicon-link"></span></a>m = dim(X)[2] # No.of Datapoints</h1>
-<h1 id="a2--cachea2--output">
-<a class="anchor" href="#a2--cachea2--output" aria-hidden="true"><span class="octicon octicon-link"></span></a>A2 = cache$A2 # Output</h1>
-<h1 id="cost---meana2-y2">
-<a class="anchor" href="#cost---meana2-y2" aria-hidden="true"><span class="octicon octicon-link"></span></a>cost &lt;- mean((A2-Y)^2)</h1>
-<h1 id="return-cost">
-<a class="anchor" href="#return-cost" aria-hidden="true"><span class="octicon octicon-link"></span></a>return (cost)</h1>
-<p>#}
-cost &lt;- computeCost(X, Y, fwd_prop)
-cost
-backwardPropagation &lt;- function(X, Y, cache, params, list_layer_size){
-  m &lt;- dim(X)[2]
-  n_x &lt;- list_layer_size$n_x
-  n_h &lt;- list_layer_size$n_h
-  n_y &lt;- list_layer_size$n_y
-  A2 &lt;- cache$A2
-  A1 &lt;- cache$A1
-  W2 &lt;- params$W2
-  # Output Layer
-  dZ2 = A2 - Y
-  dW2 = 1/m * (dZ2 %*% t(A1)) 
-  db2 &lt;- matrix(1/m * sum(dZ2), nrow = n_y)
-  db2_new &lt;- matrix(rep(db2, m), nrow = n_y)</p>
+     </span><span class="n">params</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="s2">"W1"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">W1</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"b1"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b1</span><span class="p">,</span><span class="w"> 
+                    </span><span class="s2">"W2"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">W2</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"b2"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b2</span><span class="p">)</span><span class="w">
 
-<p># Input Layer
-  dZ1 &lt;- (t(W2) %<em>% dZ2) * (1 - A1^2) # If tanh
-  # dZ1 &lt;- (t(W2) %</em>% dZ2) * (A1<em>(1</em>A1)) # If sigmoid
-  dW1 &lt;- 1/m * (dZ1 %*% t(X))
-  db1 &lt;- matrix(1/m * sum(dZ1), nrow = n_h)
-  db1_new &lt;- matrix(rep(db1, m), nrow = n_h)
-  grads &lt;- list(“dW1” = dW1, 
-                “db1” = db1,
-                “dW2” = dW2,
-                “db2” = db2)</p>
+     </span><span class="n">return</span><span class="w"> </span><span class="p">(</span><span class="n">params</span><span class="p">)</span><span class="w">
+   </span><span class="p">}</span><span class="w">
+   </span><span class="n">pars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">initializeParameters</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">layers_size</span><span class="p">)</span><span class="w">
+   </span><span class="c1">## Activations</span><span class="w">
+   </span><span class="n">sigmoid</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">){</span><span class="w">
+     </span><span class="nf">return</span><span class="p">(</span><span class="m">1</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">)))</span><span class="w">
+   </span><span class="p">}</span><span class="w">
+   </span><span class="c1">## Using Tanh in the hidden layer</span><span class="w">
+   </span><span class="c1">## Sigmoid in the Output Layer</span><span class="w">
+   </span><span class="n">forwardPropagation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">params</span><span class="p">,</span><span class="w"> </span><span class="n">list_layer_size</span><span class="p">){</span><span class="w">
+     </span><span class="n">m</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">dim</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="m">2</span><span class="p">]</span><span class="w">
+     </span><span class="n">n_h</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">list_layer_size</span><span class="o">$</span><span class="n">n_h</span><span class="w">
+     </span><span class="n">n_y</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">list_layer_size</span><span class="o">$</span><span class="n">n_y</span><span class="w">
+     </span><span class="n">W1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">params</span><span class="o">$</span><span class="n">W1</span><span class="w">
+     </span><span class="n">b1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">params</span><span class="o">$</span><span class="n">b1</span><span class="w">
+     </span><span class="n">W2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">params</span><span class="o">$</span><span class="n">W2</span><span class="w">
+     </span><span class="n">b2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">params</span><span class="o">$</span><span class="n">b2</span><span class="w">
+     </span><span class="n">b1_new</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="n">b1</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">),</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n_h</span><span class="p">)</span><span class="w">
+     </span><span class="n">b2_new</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="n">b2</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">),</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n_y</span><span class="p">)</span><span class="w">
+     </span><span class="c1"># Input to Hiddem</span><span class="w">
+     </span><span class="n">Z1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">W1</span><span class="w"> </span><span class="o">%*%</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b1_new</span><span class="w">
+     </span><span class="n">A1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">tanh</span><span class="p">(</span><span class="n">Z1</span><span class="p">)</span><span class="w">
+     </span><span class="c1"># A1 &lt;- sigmoid(Z1) # For Sigmoid in input layer</span><span class="w">
+     </span><span class="c1"># Hidden to Output</span><span class="w">
+     </span><span class="n">Z2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">W2</span><span class="w"> </span><span class="o">%*%</span><span class="w"> </span><span class="n">A1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b2_new</span><span class="w">
+     </span><span class="c1"># A2 = Z2 # Linear Output</span><span class="w">
+     </span><span class="n">A2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sigmoid</span><span class="p">(</span><span class="n">Z2</span><span class="p">)</span><span class="w"> </span><span class="c1"># For Sigmoid</span><span class="w">
+     </span><span class="n">cache</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="s2">"Z1"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Z1</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"A1"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A1</span><span class="p">,</span><span class="w"> 
+                   </span><span class="s2">"Z2"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Z2</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"A2"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A2</span><span class="p">)</span><span class="w">
+     </span><span class="n">return</span><span class="w"> </span><span class="p">(</span><span class="n">cache</span><span class="p">)</span><span class="w">
+   </span><span class="p">}</span><span class="w">
+   </span><span class="n">fwd_prop</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">forwardPropagation</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">pars</span><span class="p">,</span><span class="w"> </span><span class="n">layers_size</span><span class="p">)</span><span class="w">
+   </span><span class="n">lapply</span><span class="p">(</span><span class="n">fwd_prop</span><span class="p">,</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="nf">dim</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="w">
+   </span><span class="c1">## Classification</span><span class="w">
+   </span><span class="n">computeCost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">cache</span><span class="p">){</span><span class="w">
+     </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">dim</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="m">2</span><span class="p">]</span><span class="w"> </span><span class="c1"># No.of Datapoints</span><span class="w">
+     </span><span class="n">A2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cache</span><span class="o">$</span><span class="n">A2</span><span class="w"> </span><span class="c1"># Output</span><span class="w">
+     </span><span class="c1"># Binary Loss</span><span class="w">
+     </span><span class="n">logprobs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">A2</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Y</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="m">1</span><span class="o">-</span><span class="n">A2</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="o">-</span><span class="n">Y</span><span class="p">))</span><span class="w">
+     </span><span class="n">cost</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="o">-</span><span class="nf">sum</span><span class="p">(</span><span class="n">logprobs</span><span class="o">/</span><span class="n">m</span><span class="p">)</span><span class="w">
+     </span><span class="n">return</span><span class="w"> </span><span class="p">(</span><span class="n">cost</span><span class="p">)</span><span class="w">
+   </span><span class="p">}</span><span class="w">
+   </span><span class="c1">## If Regression</span><span class="w">
+   </span><span class="c1">#computeCost = function(X,Y,cache){</span><span class="w">
+   </span><span class="c1">#  m = dim(X)[2] # No.of Datapoints</span><span class="w">
+   </span><span class="c1">#  A2 = cache$A2 # Output</span><span class="w">
+   </span><span class="c1">#  cost &lt;- mean((A2-Y)^2)</span><span class="w">
+   </span><span class="c1">#  return (cost)</span><span class="w">
+   </span><span class="c1">#}</span><span class="w">
+   </span><span class="n">cost</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">computeCost</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">Y</span><span class="p">,</span><span class="w"> </span><span class="n">fwd_prop</span><span class="p">)</span><span class="w">
+   </span><span class="n">cost</span><span class="w">
+   </span><span class="n">backwardPropagation</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">Y</span><span class="p">,</span><span class="w"> </span><span class="n">cache</span><span class="p">,</span><span class="w"> </span><span class="n">params</span><span class="p">,</span><span class="w"> </span><span class="n">list_layer_size</span><span class="p">){</span><span class="w">
+     </span><span class="n">m</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">dim</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="m">2</span><span class="p">]</span><span class="w">
+     </span><span class="n">n_x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">list_layer_size</span><span class="o">$</span><span class="n">n_x</span><span class="w">
+     </span><span class="n">n_h</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">list_layer_size</span><span class="o">$</span><span class="n">n_h</span><span class="w">
+     </span><span class="n">n_y</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">list_layer_size</span><span class="o">$</span><span class="n">n_y</span><span class="w">
+     </span><span class="n">A2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">cache</span><span class="o">$</span><span class="n">A2</span><span class="w">
+     </span><span class="n">A1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">cache</span><span class="o">$</span><span class="n">A1</span><span class="w">
+     </span><span class="n">W2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">params</span><span class="o">$</span><span class="n">W2</span><span class="w">
+     </span><span class="c1"># Output Layer</span><span class="w">
+     </span><span class="n">dZ2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Y</span><span class="w">
+     </span><span class="n">dW2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">/</span><span class="n">m</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">dZ2</span><span class="w"> </span><span class="o">%*%</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="n">A1</span><span class="p">))</span><span class="w"> 
+     </span><span class="n">db2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">/</span><span class="n">m</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">dZ2</span><span class="p">),</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n_y</span><span class="p">)</span><span class="w">
+     </span><span class="n">db2_new</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="n">db2</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">),</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n_y</span><span class="p">)</span><span class="w">
 
-<p>return(grads)
-}</p>
+     </span><span class="c1"># Input Layer</span><span class="w">
+     </span><span class="n">dZ1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="p">(</span><span class="n">W2</span><span class="p">)</span><span class="w"> </span><span class="o">%*%</span><span class="w"> </span><span class="n">dZ2</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">A1</span><span class="o">^</span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="c1"># If tanh</span><span class="w">
+     </span><span class="c1"># dZ1 &lt;- (t(W2) %*% dZ2) * (A1*(1*A1)) # If sigmoid</span><span class="w">
+     </span><span class="n">dW1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="o">/</span><span class="n">m</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">dZ1</span><span class="w"> </span><span class="o">%*%</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="n">X</span><span class="p">))</span><span class="w">
+     </span><span class="n">db1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">/</span><span class="n">m</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">dZ1</span><span class="p">),</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n_h</span><span class="p">)</span><span class="w">
+     </span><span class="n">db1_new</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="n">db1</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">),</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n_h</span><span class="p">)</span><span class="w">
+     </span><span class="n">grads</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="s2">"dW1"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dW1</span><span class="p">,</span><span class="w"> 
+                   </span><span class="s2">"db1"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">db1</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"dW2"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dW2</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"db2"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">db2</span><span class="p">)</span><span class="w">
 
-<p>back_prop &lt;- backwardPropagation(X, Y, fwd_prop, pars, layers_size)
-lapply(back_prop, function(x) dim(x))</p>
+     </span><span class="nf">return</span><span class="p">(</span><span class="n">grads</span><span class="p">)</span><span class="w">
+   </span><span class="p">}</span><span class="w">
 
-<p>updateParameters = function(grads,params, learning_rate){
-  W1 &lt;- params$W1
-  b1 &lt;- params$b1
-  W2 &lt;- params$W2
-  b2 &lt;- params$b2</p>
+   </span><span class="n">back_prop</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">backwardPropagation</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">Y</span><span class="p">,</span><span class="w"> </span><span class="n">fwd_prop</span><span class="p">,</span><span class="w"> </span><span class="n">pars</span><span class="p">,</span><span class="w"> </span><span class="n">layers_size</span><span class="p">)</span><span class="w">
+   </span><span class="n">lapply</span><span class="p">(</span><span class="n">back_prop</span><span class="p">,</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="nf">dim</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="w">
 
-<p>dW1 &lt;- grads$dW1
-  db1 &lt;- grads$db1
-  dW2 &lt;- grads$dW2
-  db2 &lt;- grads$db2</p>
+   </span><span class="n">updateParameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">grads</span><span class="p">,</span><span class="n">params</span><span class="p">,</span><span class="w"> </span><span class="n">learning_rate</span><span class="p">){</span><span class="w">
+     </span><span class="n">W1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">params</span><span class="o">$</span><span class="n">W1</span><span class="w">
+     </span><span class="n">b1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">params</span><span class="o">$</span><span class="n">b1</span><span class="w">
+     </span><span class="n">W2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">params</span><span class="o">$</span><span class="n">W2</span><span class="w">
+     </span><span class="n">b2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">params</span><span class="o">$</span><span class="n">b2</span><span class="w">
 
-<p>W1 &lt;- W1 - learning_rate * dW1
-  b1 &lt;- b1 - learning_rate * db1
-  W2 &lt;- W2 - learning_rate * dW2
-  b2 &lt;- b2 - learning_rate * db2</p>
+     </span><span class="n">dW1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">grads</span><span class="o">$</span><span class="n">dW1</span><span class="w">
+     </span><span class="n">db1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">grads</span><span class="o">$</span><span class="n">db1</span><span class="w">
+     </span><span class="n">dW2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">grads</span><span class="o">$</span><span class="n">dW2</span><span class="w">
+     </span><span class="n">db2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">grads</span><span class="o">$</span><span class="n">db2</span><span class="w">
 
-<p>updated_params &lt;- list(“W1” = W1,
-                         “b1” = b1,
-                         “W2” = W2,
-                         “b2” = b2)</p>
+     </span><span class="n">W1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">W1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">learning_rate</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dW1</span><span class="w">
+     </span><span class="n">b1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">b1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">learning_rate</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">db1</span><span class="w">
+     </span><span class="n">W2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">W2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">learning_rate</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dW2</span><span class="w">
+     </span><span class="n">b2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">b2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">learning_rate</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">db2</span><span class="w">
 
-<p>return (updated_params)
-}
-update_params &lt;- updateParameters(back_prop, pars, learning_rate = 0.01)
-lapply(update_params, function(x) dim(x))</p>
+     </span><span class="n">updated_params</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="s2">"W1"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">W1</span><span class="p">,</span><span class="w">
+                            </span><span class="s2">"b1"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b1</span><span class="p">,</span><span class="w">
+                            </span><span class="s2">"W2"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">W2</span><span class="p">,</span><span class="w">
+                            </span><span class="s2">"b2"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b2</span><span class="p">)</span><span class="w">
 
-<h2 id="training">
-<a class="anchor" href="#training" aria-hidden="true"><span class="octicon octicon-link"></span></a>Training</h2>
-<p>trainModel &lt;- function(X, y, num_iteration, hidden_neurons, lr){
- # X = t(X) # Transpose if not done already.
- # y = t(y)
-  layer_size &lt;- getLayerSize(X, y, hidden_neurons)
-  init_params &lt;- initializeParameters(X, layer_size)
-  cost_history &lt;- c()
-  for (i in 1:num_iteration) {
-    fwd_prop &lt;- forwardPropagation(X, init_params, layer_size)
-    cost &lt;- computeCost(X, y, fwd_prop)
-    back_prop &lt;- backwardPropagation(X, y, fwd_prop, init_params, layer_size)
-    update_params &lt;- updateParameters(back_prop, init_params, learning_rate = lr)
-    init_params &lt;- update_params
-    cost_history &lt;- c(cost_history, cost)</p>
+     </span><span class="n">return</span><span class="w"> </span><span class="p">(</span><span class="n">updated_params</span><span class="p">)</span><span class="w">
+   </span><span class="p">}</span><span class="w">
+   </span><span class="n">update_params</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">updateParameters</span><span class="p">(</span><span class="n">back_prop</span><span class="p">,</span><span class="w"> </span><span class="n">pars</span><span class="p">,</span><span class="w"> </span><span class="n">learning_rate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.01</span><span class="p">)</span><span class="w">
+   </span><span class="n">lapply</span><span class="p">(</span><span class="n">update_params</span><span class="p">,</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="nf">dim</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="w">
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if (i %% 50 == 0) cat("Iteration", i, " | Cost: ", cost, "\n")   }
-</code></pre></div></div>
+   </span><span class="c1">## Training</span><span class="w">
+   </span><span class="n">trainModel</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">num_iteration</span><span class="p">,</span><span class="w"> </span><span class="n">hidden_neurons</span><span class="p">,</span><span class="w"> </span><span class="n">lr</span><span class="p">){</span><span class="w">
+    </span><span class="c1"># X = t(X) # Transpose if not done already.</span><span class="w">
+    </span><span class="c1"># y = t(y)</span><span class="w">
+     </span><span class="n">layer_size</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">getLayerSize</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">hidden_neurons</span><span class="p">)</span><span class="w">
+     </span><span class="n">init_params</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">initializeParameters</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">layer_size</span><span class="p">)</span><span class="w">
+     </span><span class="n">cost_history</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">()</span><span class="w">
+     </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="n">num_iteration</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+       </span><span class="n">fwd_prop</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">forwardPropagation</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">init_params</span><span class="p">,</span><span class="w"> </span><span class="n">layer_size</span><span class="p">)</span><span class="w">
+       </span><span class="n">cost</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">computeCost</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">fwd_prop</span><span class="p">)</span><span class="w">
+       </span><span class="n">back_prop</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">backwardPropagation</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">fwd_prop</span><span class="p">,</span><span class="w"> </span><span class="n">init_params</span><span class="p">,</span><span class="w"> </span><span class="n">layer_size</span><span class="p">)</span><span class="w">
+       </span><span class="n">update_params</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">updateParameters</span><span class="p">(</span><span class="n">back_prop</span><span class="p">,</span><span class="w"> </span><span class="n">init_params</span><span class="p">,</span><span class="w"> </span><span class="n">learning_rate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lr</span><span class="p">)</span><span class="w">
+       </span><span class="n">init_params</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">update_params</span><span class="w">
+       </span><span class="n">cost_history</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">cost_history</span><span class="p">,</span><span class="w"> </span><span class="n">cost</span><span class="p">)</span><span class="w">
 
-<p>model_out &lt;- list(“updated_params” = update_params,
-                    “cost_hist” = cost_history)
-  return (model_out)
-}</p>
-<h2 id="learning">
-<a class="anchor" href="#learning" aria-hidden="true"><span class="octicon octicon-link"></span></a>Learning</h2>
-<p>EPOCHS = 500
-HIDDEN_NEURONS = 10
-LEARNING_RATE = 0.1
-train_model &lt;- trainModel(X, Y, hidden_neurons = HIDDEN_NEURONS, num_iteration = EPOCHS, lr = LEARNING_RATE)</p>
-<h1 id="making-prediction">
-<a class="anchor" href="#making-prediction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Making Prediction</h1>
-<p>makePrediction &lt;- function(X, y, hidden_neurons){
-   # X = t(X) # Transpose if doing in ‘trainModel’.
-  # y = t(y)
-  layer_size &lt;- getLayerSize(X, y, hidden_neurons)
-  params &lt;- train_model$updated_params
-  fwd_prop &lt;- forwardPropagation(X, params, layer_size)
-  pred &lt;- fwd_prop$A2
-  return (pred)
-}
-outputProb = makePrediction(X,Y,HIDDEN_NEURONS)</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-&lt;h2 id="2-head"&gt;Unsupervised Learning&lt;/h2&gt;   
------ 
+       </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">%%</span><span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="n">cat</span><span class="p">(</span><span class="s2">"Iteration"</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="s2">" | Cost: "</span><span class="p">,</span><span class="w"> </span><span class="n">cost</span><span class="p">,</span><span class="w"> </span><span class="s2">"\n"</span><span class="p">)</span><span class="w">
+     </span><span class="p">}</span><span class="w">
 
-&lt;h3 id="nsc"&gt;Nearest Shrunken Centroid&lt;/h3&gt;
+     </span><span class="n">model_out</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="s2">"updated_params"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">update_params</span><span class="p">,</span><span class="w">
+                       </span><span class="s2">"cost_hist"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cost_history</span><span class="p">)</span><span class="w">
+     </span><span class="n">return</span><span class="w"> </span><span class="p">(</span><span class="n">model_out</span><span class="p">)</span><span class="w">
+   </span><span class="p">}</span><span class="w">
+   </span><span class="c1">## Learning</span><span class="w">
+   </span><span class="n">EPOCHS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">500</span><span class="w">
+   </span><span class="n">HIDDEN_NEURONS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="w">
+   </span><span class="n">LEARNING_RATE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.1</span><span class="w">
+   </span><span class="n">train_model</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">trainModel</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">Y</span><span class="p">,</span><span class="w"> </span><span class="n">hidden_neurons</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HIDDEN_NEURONS</span><span class="p">,</span><span class="w"> </span><span class="n">num_iteration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EPOCHS</span><span class="p">,</span><span class="w"> </span><span class="n">lr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LEARNING_RATE</span><span class="p">)</span><span class="w">
+   </span><span class="c1"># Making Prediction</span><span class="w">
+   </span><span class="n">makePrediction</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">hidden_neurons</span><span class="p">){</span><span class="w">
+      </span><span class="c1"># X = t(X) # Transpose if doing in 'trainModel'.</span><span class="w">
+     </span><span class="c1"># y = t(y)</span><span class="w">
+     </span><span class="n">layer_size</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">getLayerSize</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">hidden_neurons</span><span class="p">)</span><span class="w">
+     </span><span class="n">params</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">train_model</span><span class="o">$</span><span class="n">updated_params</span><span class="w">
+     </span><span class="n">fwd_prop</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">forwardPropagation</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">params</span><span class="p">,</span><span class="w"> </span><span class="n">layer_size</span><span class="p">)</span><span class="w">
+     </span><span class="n">pred</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">fwd_prop</span><span class="o">$</span><span class="n">A2</span><span class="w">
+     </span><span class="n">return</span><span class="w"> </span><span class="p">(</span><span class="n">pred</span><span class="p">)</span><span class="w">
+   </span><span class="p">}</span><span class="w">
+   </span><span class="n">outputProb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">makePrediction</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">HIDDEN_NEURONS</span><span class="p">)</span><span class="w"> 
+</span></code></pre></div></div>
 
-  - Need to scale the `x` data
-  - Class Probability Estimate $\hat{p}_k(x^{*}) =$ $\frac{\mathrm{e}^{\delta_k (x^*)}}{\sum_{l=1}^{K} \mathrm{e}^{\delta_l (x^*)}}$
-  ```r
-  # To Obtain Class Probability estimate
-  pamr.predict(model, newx, threshold,type =  "posterior",prior = model$prior, threshold.scale = model$threshold.scale)
-</code></pre></div></div>
+<h2 id="2-head">
+<a class="anchor" href="#2-head" aria-hidden="true"><span class="octicon octicon-link"></span></a>Unsupervised Learning</h2>
+<hr>
+
+<h3 id="nsc">
+<a class="anchor" href="#nsc" aria-hidden="true"><span class="octicon octicon-link"></span></a>Nearest Shrunken Centroid</h3>
+
+<ul>
+  <li>Need to scale the <code class="language-plaintext highlighter-rouge">x</code> data</li>
+  <li>Class Probability Estimate $\hat{p}<em>k(x^{*}) =$ $\frac{\mathrm{e}^{\delta_k (x^*)}}{\sum</em>{l=1}^{K} \mathrm{e}^{\delta_l (x^*)}}$
+    <div class="language-r highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="w">  </span><span class="c1"># To Obtain Class Probability estimate</span><span class="w">
+  </span><span class="n">pamr.predict</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="w"> </span><span class="n">newx</span><span class="p">,</span><span class="w"> </span><span class="n">threshold</span><span class="p">,</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="s2">"posterior"</span><span class="p">,</span><span class="n">prior</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">model</span><span class="o">$</span><span class="n">prior</span><span class="p">,</span><span class="w"> </span><span class="n">threshold.scale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">model</span><span class="o">$</span><span class="n">threshold.scale</span><span class="p">)</span><span class="w">
+</span></code></pre></div>    </div>
+  </li>
+</ul>
+
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w">  </span><span class="n">library</span><span class="p">(</span><span class="n">pamr</span><span class="p">)</span><span class="w">
   </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">read.csv2</span><span class="p">(</span><span class="n">paste0</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span><span class="w"> </span><span class="s2">"data.csv"</span><span class="p">))</span><span class="w"> </span><span class="p">)</span><span class="w">
   </span><span class="n">data</span><span class="o">$</span><span class="n">Conference</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">as.factor</span><span class="p">(</span><span class="n">data</span><span class="o">$</span><span class="n">Conference</span><span class="p">)</span><span class="w"> </span><span class="c1"># Categorical as factor</span><span class="w">
@@ -1708,7 +1632,7 @@ outputProb = makePrediction(X,Y,HIDDEN_NEURONS)</p>
 <a class="anchor" href="#pca" aria-hidden="true"><span class="octicon octicon-link"></span></a>PCA</h3>
 
 <ul>
-  <li>For PC1: $eigen_{1\lambda_1}$<em>column-1 + $eigen_{2\lambda_1}$</em>column-2 +…
+  <li>For PC1: $eigen_{1\lambda_1} \cdot$column-1 + $eigen_{2\lambda_1} \cdot$ column-2 +…
     <ul>
       <li>r-equivalent: <code class="language-plaintext highlighter-rouge">PC1 = x2%*%as.matrix(eig.x$vectors[,1])</code> where $x2$ is NXD matrix and <code class="language-plaintext highlighter-rouge">eig.x$vector[,1]</code> is a <code class="language-plaintext highlighter-rouge">DX1</code> eigen-vectors for $\lambda_1$</li>
     </ul>
@@ -2189,31 +2113,10 @@ outputProb = makePrediction(X,Y,HIDDEN_NEURONS)</p>
 <ul>
   <li>$Y_i = \mathbf{x}_i + \mathbf{\beta} + \epsilon_i, \text{i = 1,…,n}$ where $\epsilon_i \sim \textit{Laplace(0,b)}$ then, the complete data Log-Likelihood is given as,
     <ul>
-      <li>
-        <table>
-          <tbody>
-            <tr>
-              <td>$ - \ln p\left( Y</td>
-              <td>\mathbf{X}, \mathbf{\beta}, b \right) = n \ln (\textit{2b}) + \frac{1}{b} \sum_{i=1}^n \left</td>
-              <td>\mathbf{x}_i \cdot \mathbf{\beta} - Y_i \right</td>
-              <td>$</td>
-            </tr>
-          </tbody>
-        </table>
-      </li>
+      <li>$ - \ln p\left( Y| \mathbf{X}, \mathbf{\beta}, b \right) = n \ln (\textit{2b}) + \frac{1}{b} \sum_{i=1}^n \left|\mathbf{x}_i \cdot \mathbf{\beta} - Y_i \right|$</li>
     </ul>
   </li>
-  <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>Creating distribution for error term $\epsilon$ where $p(\epsilon) = \frac{e^{-</td>
-          <td>\epsilon</td>
-          <td>}}{2}$</td>
-        </tr>
-      </tbody>
-    </table>
-  </li>
+  <li>Creating distribution for error term $\epsilon$ where $p(\epsilon) = \frac{e^{-|\epsilon|}}{2}$</li>
   <li>
 <code class="language-plaintext highlighter-rouge">e_s</code> draws from the Laplacian Error distribution with $\mu = \mathbf{0}$ and $\Sigma = \mathbf{1}$
     <div class="language-r highlighter-rouge">
