@@ -295,16 +295,8 @@ window.onload = wrap_img;
 </span></code></pre></div></div>
 
 <ul>
-  <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>Sensitivity/Recal/True Positive Rate: $\frac{TP}{\text{Actual Yes}}$</td>
-        </tr>
-      </tbody>
-    </table>
-  </li>
-  <li>|       Specificity/False Positive Rate: $\frac{\text{FP}}{\textbf{Actual NO}}$
+  <li>Sensitivity/Recal/True Positive Rate: $\frac{TP}{\text{Actual Yes}}$</li>
+  <li>Specificity/False Positive Rate: $\frac{\text{FP}}{\textbf{Actual NO}}$
     <div class="language-r highlighter-rouge">
 <div class="highlight"><pre class="highlight"><code><span class="n">get.rate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">predicted.prob</span><span class="p">,</span><span class="w"> </span><span class="n">actual</span><span class="p">,</span><span class="w"> </span><span class="n">true_label</span><span class="p">,</span><span class="w"> </span><span class="n">false_label</span><span class="p">,</span><span class="w"> </span><span class="n">threshold</span><span class="p">){</span><span class="w">
 </span><span class="n">prediction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ifelse</span><span class="p">(</span><span class="n">predicted.prob</span><span class="o">&gt;</span><span class="n">threshold</span><span class="p">,</span><span class="w"> </span><span class="n">true_label</span><span class="p">,</span><span class="n">false_label</span><span class="p">)</span><span class="w">
