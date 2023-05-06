@@ -14,4 +14,4 @@ We can get in touch on [Linkedin](https://in.linkedin.com/in/sbiqbal) or [Twitte
 ### Books I'm reading
 ----
 
-![Information: The New Language of Science](https://m.media-amazon.com/images/I/61RcreXTjLL._AC_UF1000,1000_QL80_.jpg)
+![Information: The New Language of Science](https://archive.org/services/img/informationnewla00vonb)
