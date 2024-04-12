@@ -9,9 +9,3 @@ $\mathbf{E}\[$ Somewhere between spiritual esctasies of a Learner and morbid con
 Aloha! It's Iqbal from India, working as a Data Scientist at [Mainly](https://mainly.ai/). 
 Always trying to update my weights and biases and prior beliefs!
 We can get in touch on [Linkedin](https://in.linkedin.com/in/sbiqbal) or [Twitter](https://twitter.com/MusingIqbal).
-
-
-### Books I'm reading
-----
-
-- [Information: The New Language of Science](https://www.goodreads.com/book/show/1602908.Information)
